@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { addItem as addItemAction } from '../actions';
+import { addItem as addItemAction } from '../../actions';
 
 const StyledForm = styled.form`
-  width: 30%;
-  padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
+  width: 30%;
+  padding: 1.5rem 1rem;
   box-shadow: 0px 10px 30px -10px hsla(0, 0%, 0%, 0.5);
 `;
 
 const StyledInput = styled.input`
   padding: 0.5rem 1rem;
   margin-bottom: 1rem;
-  border-color: ${(props) => (props.invalid ? 'red' : 'transparent')};
+  border-color: ${({ theme, invalid }) => (invalid ? theme.red : 'transparent')};
   border-radius: 10px;
 `;
 
@@ -63,6 +64,10 @@ const Form = ({ addItem }) => {
       </button>
     </StyledForm>
   );
+};
+
+Form.propTypes = {
+  addItem: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

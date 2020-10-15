@@ -5,9 +5,14 @@
     "prettier/react"
   ],
   "rules": {
+    "no-param-reassign": 0,
+    "jsx-a11y/label-has-associated-control": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
     "no-case-declarations": 0,
     "no-underscore-dangle": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
+    "import/prefer-default-export": 0
   },
   "env": {
     "browser": true,
