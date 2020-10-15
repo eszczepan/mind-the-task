@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
   body{
     font-size: 1.6rem;
     font-family: 'Encode Sans Expanded', sans-serif;
+    background-color: #f3f3f3;
   }
 `;
 

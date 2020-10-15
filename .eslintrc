@@ -5,6 +5,8 @@
     "prettier/react"
   ],
   "rules": {
+    "no-case-declarations": 0,
+    "no-underscore-dangle": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js"] }]
   },
   "env": {
