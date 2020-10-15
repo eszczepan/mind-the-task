@@ -58,13 +58,13 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         todos: [
-          ...state.todos,
           {
             id,
             content,
             priority,
             done: false,
           },
+          ...state.todos,
         ],
       };
     }
