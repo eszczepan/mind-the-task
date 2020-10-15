@@ -29,9 +29,7 @@ const Form = ({ addItem }) => {
     setContentValue(e.target.value);
   };
 
-  const handlePriority = (e) => {
-    setPriorityValue(e.target.value * 1);
-  };
+  const handlePriority = (e) => setPriorityValue(e.target.value * 1);
 
   const handleAddBtn = (e) => {
     e.preventDefault();

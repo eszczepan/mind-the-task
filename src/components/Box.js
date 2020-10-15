@@ -60,6 +60,8 @@ const Box = ({ todos, removeItem, sort, toggleCheckbox }) => {
   const [isNameAsc, setIsNameAsc] = useState(true);
   const [isPriorityAsc, setIsPriorityAsc] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
+  const [perPage, setPerPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleName = () => {
     sort('name', isNameAsc);
@@ -78,6 +80,25 @@ const Box = ({ todos, removeItem, sort, toggleCheckbox }) => {
 
   const handleMouseHover = () => setIsHovering(!isHovering);
 
+  const indexOfLastTodo = currentPage * perPage;
+  const indexOfFirstTodo = indexOfLastTodo - perPage;
+  const currentTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
+
+  const handlePerPage = (e) => {
+    setPerPage(e.target.value * 1);
+    setCurrentPage(1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage === 1) return console.log('error');
+    setCurrentPage(currentPage - 1);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage >= todos.length / perPage) return console.log('error');
+    setCurrentPage(currentPage + 1);
+  };
+
   return (
     <StyledBox>
       <StyledListItem header>
@@ -86,46 +107,57 @@ const Box = ({ todos, removeItem, sort, toggleCheckbox }) => {
         <p onClick={handleCheckbox}>Done</p>
       </StyledListItem>
       <StyledList onMouseEnter={handleMouseHover} onMouseLeave={handleMouseHover}>
-        {todos.map(({ id, content, priority, done }) => (
-          <StyledListItem key={id}>
-            <p>{content}</p>
-            {priority === 1 && <p>Low</p>}
-            {priority === 2 && <p>Medium</p>}
-            {priority === 3 && <p>High</p>}
-            {done ? (
-              <input
-                type="checkbox"
-                name="done"
-                id="done"
-                defaultChecked
-                onClick={() => toggleCheckbox(id)}
-              />
-            ) : (
-              <input type="checkbox" name="done" id="done" onClick={() => toggleCheckbox(id)} />
-            )}
+        {currentTodos.map(({ id, content, priority, done }) => {
+          return (
+            <StyledListItem key={id}>
+              <p>{content}</p>
+              {priority === 1 && <p>Low</p>}
+              {priority === 2 && <p>Medium</p>}
+              {priority === 3 && <p>High</p>}
+              {done ? (
+                <input
+                  type="checkbox"
+                  name="done"
+                  id="done"
+                  defaultChecked
+                  onClick={() => toggleCheckbox(id)}
+                />
+              ) : (
+                <input type="checkbox" name="done" id="done" onClick={() => toggleCheckbox(id)} />
+              )}
 
-            {isHovering && (
-              <StyledButton onClick={() => removeItem(id)} type="button">
-                X
-              </StyledButton>
-            )}
-          </StyledListItem>
-        ))}
+              {isHovering && (
+                <StyledButton onClick={() => removeItem(id)} type="button">
+                  X
+                </StyledButton>
+              )}
+            </StyledListItem>
+          );
+        })}
       </StyledList>
       <StyledPagination>
         <StyledWrapper>
           <label htmlFor="rows">
             Rows per page
-            <select name="rows" id="rows">
+            <select onChange={handlePerPage} value={perPage} name="rows" id="rows">
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
+              <option value="15">20</option>
             </select>
           </label>
-          <p>1-5 of 11</p>
+          <p>
+            {indexOfFirstTodo + 1}-
+            {currentPage >= todos.length / perPage ? todos.length : indexOfLastTodo} of{' '}
+            {todos.length}
+          </p>
           <div>
-            <button type="button">&#60;</button>
-            <button type="button">&#62;</button>
+            <button type="button" onClick={handlePrevPage}>
+              &#60;
+            </button>
+            <button type="button" onClick={handleNextPage}>
+              &#62;
+            </button>
           </div>
         </StyledWrapper>
       </StyledPagination>
