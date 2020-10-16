@@ -17,7 +17,9 @@ MindTheTask is a simple TODO list.
 - **React**
 - **Hooks**
 - **Redux**
+- **PropTypes**
 - **Styled-Components**
+- **LocalStorage**
 
 ## :construction_worker: Installation
 
