@@ -8,6 +8,13 @@ const ListItem = styled.li`
   padding: ${({ header }) => (header ? '2rem 1.5rem' : '2.5rem 1.5rem')};
   border-bottom: 1px solid ${({ theme }) => theme.grey};
   position: relative;
+  @media (max-width: 580px) {
+    grid-template-columns: 2fr 1fr 1fr;
+    font-size: ${({ theme }) => theme.fontSize.m};
+  }
+  @media (max-width: 450px) {
+    font-size: ${({ theme }) => theme.fontSize.s};
+  }
 `;
 
 export default ListItem;

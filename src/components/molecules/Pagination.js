@@ -25,11 +25,18 @@ const StyledPagination = styled.div`
   @media (max-width: 768px) {
     width: 100%;
   }
+  @media (max-width: 580px) {
+    font-size: ${({ theme }) => theme.fontSize.m};
+  }
+  @media (max-width: 450px) {
+    font-size: ${({ theme }) => theme.fontSize.s};
+  }
 `;
 
 const StyledWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const Pagination = ({

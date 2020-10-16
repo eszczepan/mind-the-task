@@ -9,12 +9,13 @@ import {
 } from '../../actions';
 import List from '../molecules/List';
 import ListItem from '../atoms/ListItem';
+import SortParagraph from '../atoms/SortParagraph';
 import Pagination from '../molecules/Pagination';
 
 const StyledBox = styled.div`
   background-color: ${({ theme }) => theme.white};
   width: 60%;
-  margin: 5rem 0;
+  margin: 1rem 0 5rem;
   box-shadow: 0px 10px 30px -10px hsla(0, 0%, 0%, 0.5);
   @media (max-width: 1100px) {
     width: 80%;
@@ -68,9 +69,15 @@ const Box = ({ todos, sort, removeItem, toggleCheckbox }) => {
   return (
     <StyledBox>
       <ListItem header>
-        <p onClick={handleName}>Task name</p>
-        <p onClick={handlePriority}>Priority</p>
-        <p onClick={handleCheckbox}>Done</p>
+        <SortParagraph as="button" onClick={handleName}>
+          Task name
+        </SortParagraph>
+        <SortParagraph as="button" onClick={handlePriority}>
+          Priority
+        </SortParagraph>
+        <SortParagraph as="button" onClick={handleCheckbox}>
+          Done
+        </SortParagraph>
       </ListItem>
       <List currentTodos={currentTodos} removeItem={removeItem} toggleCheckbox={toggleCheckbox} />
       <Pagination

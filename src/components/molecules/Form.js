@@ -3,20 +3,30 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { addItem as addItemAction } from '../../actions';
+import Button from '../atoms/Button';
+import Input from '../atoms/Input';
+import Label from '../atoms/Label';
+import Select from '../atoms/Select';
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 30%;
-  padding: 1.5rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 80%;
+  margin: 5rem 0 0;
+  padding: 4rem 3rem;
   box-shadow: 0px 10px 30px -10px hsla(0, 0%, 0%, 0.5);
+  @media (max-width: 580px) {
+    margin: 3rem 0 0;
+    padding: 4rem 1.5rem;
+  }
 `;
 
-const StyledInput = styled.input`
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
-  border-color: ${({ theme, invalid }) => (invalid ? theme.red : 'transparent')};
-  border-radius: 10px;
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const Form = ({ addItem }) => {
@@ -44,24 +54,31 @@ const Form = ({ addItem }) => {
 
   return (
     <StyledForm>
-      <StyledInput
-        type="text"
-        value={contentValue}
-        onChange={handleContent}
-        invalid={invalidInput}
-        placeholder={invalidInput ? 'Text is required...' : null}
-      />
-      <label htmlFor="priority">
-        Priority
-        <select onChange={handlePriority} value={priorityValue} name="priority" id="priority">
+      <StyledDiv>
+        <Input
+          type="text"
+          value={contentValue}
+          onChange={handleContent}
+          invalid={invalidInput}
+          placeholder={invalidInput ? 'Text is required...' : 'MindTheTask'}
+          maxlength="50"
+        />
+        <Label htmlFor="priority">Priority</Label>
+        <Select
+          priority
+          onChange={handlePriority}
+          value={priorityValue}
+          name="priority"
+          id="priority"
+        >
           <option value="3">High</option>
           <option value="2">Medium</option>
           <option value="1">Low</option>
-        </select>
-      </label>
-      <button onClick={handleAddBtn} type="submit">
+        </Select>
+      </StyledDiv>
+      <Button add onClick={handleAddBtn} type="submit">
         Add task
-      </button>
+      </Button>
     </StyledForm>
   );
 };
